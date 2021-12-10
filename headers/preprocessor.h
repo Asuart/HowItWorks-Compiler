@@ -15,6 +15,8 @@ class PreProcessor {
     std::vector<SourceFile> _headers;
     std::vector<PreProcessorDefine> _defines;
 
+    std::vector<SourceFile> _processedFiles;
+
     std::list<std::string> _sourceQueue;
     std::list<std::string> _preprocessedSource;
 
@@ -24,6 +26,9 @@ class PreProcessor {
     bool IsDirectiveLine(const std::string& line);
     void HandleDirective(const std::string& line);
     std::string ReplaceDefines(const std::string& line);
+
+    bool IncludeFile(const std::string& path);
+    bool LoadHeader(const std::string& path);
 public:
     PreProcessor(std::vector<SourceFile>& sources);
     ~PreProcessor();

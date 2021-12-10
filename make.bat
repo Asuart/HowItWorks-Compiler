@@ -3,7 +3,7 @@
 set prg_name=main.exe
 
 set compiler=g++
-set flags=
+set flags=-g3 -Wall
 set sources=main.cpp sources/compiler.cpp sources/console.cpp sources/preprocessor.cpp sources/source_file.cpp sources/tools.cpp
 set out=-o %prg_name%
 

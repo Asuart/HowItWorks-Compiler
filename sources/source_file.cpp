@@ -4,6 +4,8 @@ SourceFile::SourceFile() : _path("empty") {}
 SourceFile::SourceFile(const std::string& path) : _path("empty") {
     LoadFile(path);
 }
+SourceFile::SourceFile(const std::string& path, const std::list<std::string>& source) 
+    : _path(path), _source(source){}
 SourceFile::~SourceFile(){}
 
 bool SourceFile::LoadFile(const std::string& path){
@@ -29,7 +31,7 @@ bool SourceFile::ReloadFile(){
 }
 
 bool SourceFile::SaveFile(){
-    SaveFileCopy(_path);
+    return SaveFileCopy(_path);
 }
 
 bool SourceFile::SaveFileCopy(const std::string& path){

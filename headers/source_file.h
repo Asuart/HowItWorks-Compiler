@@ -9,6 +9,7 @@ class SourceFile {
 public:
     SourceFile();
     SourceFile(const std::string& path);
+    SourceFile(const std::string& path, const std::list<std::string>& source);
     ~SourceFile();
 
     bool LoadFile(const std::string& path);

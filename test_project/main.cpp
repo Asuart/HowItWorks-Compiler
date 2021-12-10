@@ -1,5 +1,5 @@
 #include "math.cpp"
 
 int main(){
-     return 2;
+     return Sum(2, 2);
 }

@@ -11,4 +11,6 @@ bool IsEmptyString(const std::string& str);
 
 std::vector<std::string> TokenizeString(const std::string& str);
 
+std::string StripPath(const std::string& path);
+
 #endif

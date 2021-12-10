@@ -12,7 +12,7 @@ inline bool IsChar(char c){
 
 bool IsEmptyString(const std::string& str){
     if(str.length() == 0) return true;
-    for(s32 i = 0; i < str.length(); i++)
+    for(size_t i = 0; i < str.length(); i++)
         if(IsChar(str[i])) return false;
     return true;
 }
@@ -20,7 +20,7 @@ bool IsEmptyString(const std::string& str){
 std::vector<std::string> TokenizeString(const std::string& str){
     std::vector<std::string> tokens;
     std::string token = "";
-    for(s32 i = 0; i < str.length(); i++){
+    for(size_t i = 0; i < str.length(); i++){
         if(IsChar(str[i])) {
             token += str[i];
         } else if(!IsEmptyString(token)){
@@ -28,6 +28,17 @@ std::vector<std::string> TokenizeString(const std::string& str){
             token = "";
         }
     }
+    if(!IsEmptyString(token)){
+        tokens.push_back(token);
+    }
 
     return tokens;
+}
+
+std::string StripPath(const std::string& path){
+    s32 startIndex = path.find("\"");
+    if(startIndex == -1) return path;
+    s32 endIndex = path.find("\"", startIndex + 1);
+    if(endIndex == -1) endIndex = path.size();
+    return path.substr(startIndex + 1, endIndex - 1);
 }
