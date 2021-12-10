@@ -8,6 +8,8 @@ class PreProcessor {
     struct PreProcessorDefine {
         std::string name;
         std::string value;
+        PreProcessorDefine(const std::string& _name = "", const std::string& _value = "");
+        ~PreProcessorDefine();
     };
 
     std::vector<SourceFile>& _sources;
@@ -29,6 +31,9 @@ class PreProcessor {
 
     bool IncludeFile(const std::string& path);
     bool LoadHeader(const std::string& path);
+
+    void AddDefinition(const std::string& name, const std::string& value);
+    void RemoveDefinition(const std::string& name);
 public:
     PreProcessor(std::vector<SourceFile>& sources);
     ~PreProcessor();

@@ -1,5 +1,9 @@
 #include "../headers/preprocessor.h"
 
+PreProcessor::PreProcessorDefine::PreProcessorDefine(const std::string& _name, const std::string& _value)
+    : name(_name), value(_value){}
+PreProcessor::PreProcessorDefine::~PreProcessorDefine(){}
+
 PreProcessor::PreProcessor(std::vector<SourceFile>& sources)
     : _sources(sources), _ignoreCode(false) {}
 
@@ -50,11 +54,19 @@ void PreProcessor::HandleDirective(const std::string& line){
         std::string path = PROJECT_PATH + StripPath(tokens[1]);
         IncludeFile(path);
     } else if (tokens[0] == "#import"){
-
+        
     } else if (tokens[0] == "#define"){
-
+        if(tokens.size() < 2) {
+            Console::Error("No parameters specified for #define");
+            return;
+        }
+        AddDefinition(tokens[1], (tokens.size() > 2) ? tokens[2] : "");
     } else if (tokens[0] == "#undef"){
-
+        if(tokens.size() < 2) {
+            Console::Error("No name specified for #undef");
+            return;
+        }
+        RemoveDefinition(tokens[1]);
     } else if (tokens[0] == "#if"){
 
     } else if (tokens[0] == "#else"){
@@ -110,4 +122,23 @@ bool PreProcessor::LoadHeader(const std::string& _path){
     if(!src.LoadFile(_path)) return false;
     _headers.push_back(src);
     return true;
+}
+
+void PreProcessor::AddDefinition(const std::string& name, const std::string& value){
+    for(size_t i = 0; i < _defines.size(); i++){
+        if(_defines[i].name == name){ 
+            _defines[i].value = value;
+            break;
+        }
+    }
+    _defines.push_back(PreProcessorDefine(name, value));
+}
+
+void PreProcessor::RemoveDefinition(const std::string& name){
+    for(size_t i = 0; i < _defines.size(); i++){
+        if(_defines[i].name == name){ 
+            _defines.erase(_defines.begin() + i);
+            break;
+        }
+    }
 }
